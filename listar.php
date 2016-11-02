@@ -22,10 +22,10 @@
 	<div class="container">
 	    <div class="jumbotron text-center">
 			<h3>Livros Disponíveis</h3>
-	    	<button class="btn btn-default btn-lg" id="listBooks" onclick="getBooks()">Listar livros</button>
+	    	<button class="btn btn-default btn-lg" id="listBooks" onclick="getBooks('list')">Listar livros</button>
 	    	
 	    	<!-- The book is on the table -->
-			<table class="table table-hover hidden" id="books-table">
+			<table class="table table-hover hidden" id="booksTable">
 				<thead>
 					<tr>
 						<th>ID</th>
