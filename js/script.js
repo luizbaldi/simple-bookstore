@@ -11,7 +11,8 @@ function saveBook() {
     var quantity = document.forms[0].quantity.value;
 
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4) {               
+        if (xmlhttp.readyState == 4) {
+            console.log(xmlhttp.responseText);               
             swal('Livro cadastrado com sucesso');
         }
     };
@@ -24,7 +25,7 @@ function saveBook() {
         "nmautor": author,
         "nmeditora": company,
         "dtlancamento": launchDate,
-        "crpreco": price,
+        "vrpreco": price,
         "estadisponivel": isAvaible,
         "vrquantidade": quantity
     };
@@ -61,7 +62,7 @@ function getBooks(methodType) {
                         // Sends the current row to the method to create a formatted table row
                         booksTable.tBodies[0].innerHTML += getFormattedTableRow(restifyData.restify.rows[j].values);
                     }
-                } else if (methodType == 'delete') {
+                } else if (methodType == 'delete' || 'update') {
                     // Get the elements from excluir.php screen
                     var booksToDelete = document.getElementById("booksToDelete");
 
@@ -75,6 +76,9 @@ function getBooks(methodType) {
                 }
             } else {
                 sweetAlert("Não exitem livros cadastrados");
+
+                // redirect to index
+                // window.location = "index.php";
             }
         }
     }
@@ -90,7 +94,7 @@ function deleteBook(currentBookId) {
             confirmButtonText: "Sim",
             closeOnConfirm: false
         },
-        function() {
+        function onConfirmMessage() {
             var xmlhttp = new XMLHttpRequest();
 
             var bookToDeleteAddress = "http://www.smartsoft.com.br/webservice/restifydb/Employees/diw_livraria/" + currentBookId;
@@ -107,17 +111,22 @@ function deleteBook(currentBookId) {
     );
 }
 
+function updateBook() {
+
+}
+
 function getFormattedTableRow(currentRow) {
     var formattedRow = "";
-
+    var isAvaibleMask = currentRow.estadisponivel.value == 1 ? "Sim" : "Não";
+     
     formattedRow += "<tr>";
     formattedRow += "<td>" + currentRow.cdlivro.value + "</td>";
     formattedRow += "<td>" + currentRow.nmlivro.value + "</td>";
     formattedRow += "<td>" + currentRow.nmautor.value + "</td>";
     formattedRow += "<td>" + currentRow.nmeditora.value + "</td>";
     formattedRow += "<td>" + currentRow.dtlancamento.value + "</td>";
-    formattedRow += "<td>" + currentRow.crpreco.value + "</td>";
-    formattedRow += "<td>" + currentRow.estadisponivel.value + "</td>";
+    formattedRow += "<td>" + currentRow.vrpreco.value + "</td>";
+    formattedRow += "<td>" + isAvaibleMask + "</td>";
     formattedRow += "<td>" + currentRow.vrquantidade.value + "</td>";
     formattedRow += "</tr>";
 

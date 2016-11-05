@@ -7,17 +7,32 @@
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/sweetalert.css">
 	
 	<!-- JavaScript Files -->
+	<script src="js/sweetalert.min.js"></script>
 	<script src="js/script.js"></script>
+
 </head>
-<body>
+<body onload="getBooks('update')">
 	<!-- Page Header -->
 	<?php 
 		require_once('templates/header.php'); 
 	?>
     
-    <div class="jumbotron">
+    <div class="container">
+	    <div class="jumbotron text-center">
+	    	<h3>Selecione o livro para editar</h3>
+	    </div>
+
+	    <div class="row">
+    		<div class="col-xs-2"></div>
+    		<div class="col-xs-8">
+		    	<div class="list-group" id="booksToDelete">
+		    	</div>	
+    		</div>
+    		<div class="col-xs-2"></div>
+    	</div>
     </div>
 </body>
 </html>

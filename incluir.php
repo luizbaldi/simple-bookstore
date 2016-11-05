@@ -2,6 +2,8 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Incluir Dados - Livraria</title>
 
 	<!-- CSS Files -->
@@ -51,7 +53,17 @@
 	    		<br />
 				<div class="input-group">
 					<span class="input-group-addon">Está disponivel </span>
-					<input type="text" class="form-control" name="isAvaible" placeholder="Sim/Nao">		
+					<!-- <input type="text" class="form-control" name="isAvaible" placeholder="Sim/Nao">		 -->
+					<div class="radio">
+						<label>
+							<input type="radio" name="isAvaible" id="optionYes" value="1">
+							Sim
+						</label>
+						<label>
+							<input type="radio" name="isAvaible" id="optionNo" value="0">
+							Não
+						</label>
+					</div>
 				</div>
 				<br />
 				<div class="input-group">
@@ -63,14 +75,11 @@
 	    		<div class="btn-group btn-group-justified" role="group">
 	    			<div class="btn-group" role="group">
 	    				<button type="button" class="btn btn-primary" onclick="saveBook()">Enviar</button>
+	    				<br /><br />
 	    				<button type="button" class="btn btn-default">Limpar</button>
 	    			</div>
 	    		</div>
     		</form>
-
-    		<div class="text-center" id="status">
-    			<h4>Status</h4>
-    		</div>
     	</div>
     </div>
 </body>

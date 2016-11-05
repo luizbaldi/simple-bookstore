@@ -21,7 +21,7 @@
 
 	<div class="container">
 	    <div class="jumbotron text-center">
-	    	<h3>Selecione o livro que deseja excluir:</h3>
+	    	<h3>Selecione o livro que deseja excluir</h3>
 
 	    	<div class="row">
 	    		<div class="col-xs-2"></div>
