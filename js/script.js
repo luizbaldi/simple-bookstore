@@ -64,14 +64,14 @@ function getBooks(methodType) {
                     }
                 } else if (methodType == 'delete' || 'update') {
                     // Get the elements from excluir.php screen
-                    var booksToDelete = document.getElementById("booksToDelete");
+                    var booksList = document.getElementById("booksList");
 
-                    booksToDelete.innerHTML = "";
+                    booksList.innerHTML = "";
                     for (j = 0; j < rowsLength; j++) {
                         // Sends the current row to the method to create a formatted list row
-                        let formattedRow = getFormattedListRow(restifyData.restify.rows[j].values);
+                        let formattedRow = getFormattedListRow(restifyData.restify.rows[j].values, methodType);
                         
-                        booksToDelete.insertAdjacentHTML('beforeend', formattedRow);
+                        booksList.insertAdjacentHTML('beforeend', formattedRow);
                     }
                 }
             } else {
@@ -84,7 +84,7 @@ function getBooks(methodType) {
     }
 }
 
-function deleteBook(currentBookId) {
+function deleteBook(bookId) {
     swal({
             title: "Tem certeza?",
             text: "O livro selecionado não poderá ser recuperado após excluído!",
@@ -97,22 +97,18 @@ function deleteBook(currentBookId) {
         function onConfirmMessage() {
             var xmlhttp = new XMLHttpRequest();
 
-            var bookToDeleteAddress = "http://www.smartsoft.com.br/webservice/restifydb/Employees/diw_livraria/" + currentBookId;
+            var bookToDeleteAddress = "http://www.smartsoft.com.br/webservice/restifydb/Employees/diw_livraria/" + bookId;
 
             // Sent a DELETE request with bookId
             xmlhttp.open("DELETE", bookToDeleteAddress, true);
             xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xmlhttp.send();
 
-            removeDeletedBookFromList(currentBookId);
+            removeDeletedBookFromList(bookId);
 
             swal("Excluído!", "O Livro foi excluído com sucesso", "success");
         }
     );
-}
-
-function updateBook() {
-
 }
 
 function getFormattedTableRow(currentRow) {
@@ -133,25 +129,100 @@ function getFormattedTableRow(currentRow) {
     return formattedRow;
 }
 
-function getFormattedListRow(currentRow) {
+function getFormattedListRow(currentRow, methodType) {
     var formattedRow = "";
 
     var cdlivro = currentRow.cdlivro.value;
 
-    formattedRow += '<a href="#" class="list-group-item" onclick="deleteBook('+ cdlivro +')" bookId="'+cdlivro+'">';
+    if (methodType == 'delete') {
+        formattedRow += '<a href="#" class="list-group-item" onclick="deleteBook('+ cdlivro +')" bookId="'+cdlivro+'">';
+    } else if (methodType == 'update') {
+        formattedRow += '<a href="#" class="list-group-item" data-toggle="modal" data-target="#editBook"' + 
+                            'onclick="prepareModalToEdit('+ cdlivro +')" bookId="'+ cdlivro +'">';
+    }
+
     formattedRow += currentRow.nmlivro.value;
     formattedRow += '</a>';
 
     return formattedRow;
 }
 
+function prepareModalToEdit(bookId) {
+    var booksList = document.getElementById("booksList");
+    var modal = document.getElementById('editBook');
+
+    var xmlhttp = new XMLHttpRequest();
+        
+    xmlhttp.onreadystatechange = loadBookData;
+    xmlhttp.open("GET", "http://www.smartsoft.com.br/webservice/restifydb/Employees/diw_livraria/" + bookId + "/?_view=json&_expand=yes", true);
+    xmlhttp.send();
+
+    function loadBookData() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var currentBookData = JSON.parse(xmlhttp.responseText).restify.rows[0].values;
+
+            var modalContent = document.getElementById('editBook').getElementsByClassName('modal-body')[0];
+            var modalForm = modalContent.childNodes[1];
+
+            modalForm.id.value = currentBookData.cdlivro.value;
+            modalForm.name.value = currentBookData.nmlivro.value;
+            modalForm.author.value = currentBookData.nmautor.value;
+            modalForm.company.value = currentBookData.nmeditora.value;
+            modalForm.launchDate.value = currentBookData.dtlancamento.value;
+            modalForm.price.value = currentBookData.vrpreco.value;
+            modalForm.isAvaible.value = currentBookData.estadisponivel.value;
+            modalForm.quantity.value = currentBookData.vrquantidade.value;
+
+            console.log(currentBookData);
+        }
+    }
+
+}
+
+function updateBook(bookId) {
+    var xmlhttp = new XMLHttpRequest();
+
+    var id = document.forms[0].id.value;
+    var name = document.forms[0].name.value;
+    var author = document.forms[0].author.value;
+    var company = document.forms[0].company.value;
+    var launchDate = document.forms[0].launchDate.value;
+    var price = document.forms[0].price.value;
+    var isAvaible = document.forms[0].isAvaible.value;
+    var quantity = document.forms[0].quantity.value;
+
+    xmlhttp.open("PUT", "http://www.smartsoft.com.br/webservice/restifydb/Employees/diw_livraria/" + id, true);
+    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    var data = {
+        "nmlivro": name,
+        "nmautor": author,
+        "nmeditora": company,
+        "dtlancamento": launchDate,
+        "vrpreco": price,
+        "estadisponivel": isAvaible,
+        "vrquantidade": quantity
+    };
+
+    var dataToSend = '_data=' + JSON.stringify(data);
+
+    xmlhttp.send(dataToSend);
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            console.log(xmlhttp.responseText);               
+            swal('Livro alterado com sucesso');
+        }
+    };
+}
+
 function removeDeletedBookFromList(bookId) {
-    var booksToDelete = document.getElementById("booksToDelete");
+    var booksList = document.getElementById("booksList");
 
     // Find the selected book and removes from page
-    booksToDelete.childNodes.forEach(function(currentElement, index) {
+    booksList.childNodes.forEach(function(currentElement, index) {
         if(currentElement.getAttribute('bookId') == bookId) {
-            booksToDelete.removeChild(currentElement);
+            booksList.removeChild(currentElement);
         }
     });  
 }

@@ -26,7 +26,7 @@
 	    	<div class="row">
 	    		<div class="col-xs-2"></div>
 	    		<div class="col-xs-8">
-			    	<div class="list-group" id="booksToDelete">
+			    	<div class="list-group" id="booksList">
 			    	</div>	
 	    		</div>
 	    		<div class="col-xs-2"></div>
