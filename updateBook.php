@@ -10,10 +10,11 @@
 	<link rel="stylesheet" href="css/sweetalert.css">
 	
 	<!-- JavaScript Files -->
-	<script src="js/sweetalert.min.js"></script>
-	<script src="js/script.js"></script>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="js/lib/sweetalert.min.js"></script>
+	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="js/getBooks.js"></script>
+	<script src="js/updateBook.js"></script>
 
 </head>
 <body onload="getBooks('update')">

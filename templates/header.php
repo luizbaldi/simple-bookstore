@@ -9,10 +9,10 @@
 		    </div>
 		    <div id="navbar" class="navbar-collapse collapse">
 			    <ul class="nav navbar-nav">
-				    <li><a href="listar.php">Livros Disponíveis</a></li>
-				    <li><a href="alterar.php">Alterar</a></li>
-				    <li><a href="incluir.php">Incluir</a></li>
-				    <li><a href="excluir.php">Excluir</a></li>
+				    <li><a href="getBooks.php">Livros Disponíveis</a></li>
+				    <li><a href="updateBook.php">Alterar</a></li>
+				    <li><a href="insertBook.php">Incluir</a></li>
+				    <li><a href="deleteBook.php">Excluir</a></li>
 		    	</ul>
 		    </div>
 	    </div>

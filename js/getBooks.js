@@ -1,40 +1,3 @@
-// Crud js file
-function saveBook() {
-    var xmlhttp = new XMLHttpRequest();
-    
-    var name = document.forms[0].name.value;
-    var author = document.forms[0].author.value;
-    var company = document.forms[0].company.value;
-    var launchDate = document.forms[0].launchDate.value;
-    var price = document.forms[0].price.value;
-    var isAvaible = document.forms[0].isAvaible.value;
-    var quantity = document.forms[0].quantity.value;
-
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4) {
-            console.log(xmlhttp.responseText);               
-            swal('Livro cadastrado com sucesso');
-        }
-    };
-
-    xmlhttp.open("POST", "http://www.smartsoft.com.br/webservice/restifydb/Employees/diw_livraria", true);
-    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-    var data = {
-        "nmlivro": name,
-        "nmautor": author,
-        "nmeditora": company,
-        "dtlancamento": launchDate,
-        "vrpreco": price,
-        "estadisponivel": isAvaible,
-        "vrquantidade": quantity
-    };
-
-    var dataToSend = '_data=' + JSON.stringify(data);
-
-    xmlhttp.send(dataToSend);
-}
-
 function getBooks(methodType) {
     var xmlhttp = new XMLHttpRequest();
         
@@ -82,33 +45,6 @@ function getBooks(methodType) {
             }
         }
     }
-}
-
-function deleteBook(bookId) {
-    swal({
-            title: "Tem certeza?",
-            text: "O livro selecionado não poderá ser recuperado após excluído!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Sim",
-            closeOnConfirm: false
-        },
-        function onConfirmMessage() {
-            var xmlhttp = new XMLHttpRequest();
-
-            var bookToDeleteAddress = "http://www.smartsoft.com.br/webservice/restifydb/Employees/diw_livraria/" + bookId;
-
-            // Sent a DELETE request with bookId
-            xmlhttp.open("DELETE", bookToDeleteAddress, true);
-            xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xmlhttp.send();
-
-            removeDeletedBookFromList(bookId);
-
-            swal("Excluído!", "O Livro foi excluído com sucesso", "success");
-        }
-    );
 }
 
 function getFormattedTableRow(currentRow) {
@@ -176,53 +112,4 @@ function prepareModalToEdit(bookId) {
             console.log(currentBookData);
         }
     }
-
-}
-
-function updateBook(bookId) {
-    var xmlhttp = new XMLHttpRequest();
-
-    var id = document.forms[0].id.value;
-    var name = document.forms[0].name.value;
-    var author = document.forms[0].author.value;
-    var company = document.forms[0].company.value;
-    var launchDate = document.forms[0].launchDate.value;
-    var price = document.forms[0].price.value;
-    var isAvaible = document.forms[0].isAvaible.value;
-    var quantity = document.forms[0].quantity.value;
-
-    xmlhttp.open("PUT", "http://www.smartsoft.com.br/webservice/restifydb/Employees/diw_livraria/" + id, true);
-    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-    var data = {
-        "nmlivro": name,
-        "nmautor": author,
-        "nmeditora": company,
-        "dtlancamento": launchDate,
-        "vrpreco": price,
-        "estadisponivel": isAvaible,
-        "vrquantidade": quantity
-    };
-
-    var dataToSend = '_data=' + JSON.stringify(data);
-
-    xmlhttp.send(dataToSend);
-
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4) {
-            console.log(xmlhttp.responseText);               
-            swal('Livro alterado com sucesso');
-        }
-    };
-}
-
-function removeDeletedBookFromList(bookId) {
-    var booksList = document.getElementById("booksList");
-
-    // Find the selected book and removes from page
-    booksList.childNodes.forEach(function(currentElement, index) {
-        if(currentElement.getAttribute('bookId') == bookId) {
-            booksList.removeChild(currentElement);
-        }
-    });  
 }

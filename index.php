@@ -10,8 +10,6 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	
-	<!-- JavaScript Files -->
-	<script src="js/script.js"></script>
 </head>
 <body>
 	<!-- Page Header -->

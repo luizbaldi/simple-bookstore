@@ -10,8 +10,8 @@
 	<link rel="stylesheet" href="css/sweetalert.css">
 
 	<!-- JavaScript Files -->
-	<script src="js/script.js"></script>
-	<script src="js/sweetalert.min.js"></script>
+	<script src="js/getBooks.js"></script>
+	<script src="js/lib/sweetalert.min.js"></script>
 </head>
 <body>
 	<!-- Page Header -->
