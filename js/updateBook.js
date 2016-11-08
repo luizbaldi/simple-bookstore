@@ -31,6 +31,7 @@ function updateBook(bookId) {
         if (xmlhttp.readyState == 4) {
             console.log(xmlhttp.responseText);               
             swal('Livro alterado com sucesso');
+            getBooks('update');
         }
     };
 }
