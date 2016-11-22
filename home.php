@@ -16,10 +16,12 @@
 	<?php 
 		require_once('templates/header.php'); 
 	?>
-
-    <div class="jumbotron text-center">
-	    <h2>Bem vindo a Livraria Online</h2>
-	    <h4>Nosso sistema fornece todas as funcionalidades para voce gerenciar os livros em sua biblioteca!</h4>
-    </div>
+	
+	<div class="container">
+	    <div class="jumbotron text-center">
+		    <h2>Bem vindo a Livraria Online</h2>
+		    <h4>Nosso sistema fornece diversas funcionalidades para voce gerenciar os livros em sua biblioteca!</h4>
+		</div>
+	</div>
 </body>
 </html>

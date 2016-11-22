@@ -5,7 +5,7 @@
     <nav class="navbar navbar-default">
 	    <div class="container-fluid">
 		    <div class="navbar-header">
-		    	<a class="navbar-brand" href="index.php">LLH Livraria</a>
+		    	<a class="navbar-brand" href="home.php">LLH Livraria</a>
 		    </div>
 		    <div id="navbar" class="navbar-collapse collapse">
 			    <ul class="nav navbar-nav">
